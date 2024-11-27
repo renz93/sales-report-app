@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Form Input Penjualan</title>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -22,7 +24,7 @@
             margin-bottom: 8px;
             font-weight: bold;
         }
-        form input, form select, form button {
+        form select, form input, form button {
             width: 100%;
             padding: 8px;
             margin-bottom: 15px;
@@ -44,7 +46,7 @@
 
 <h2>Form Input Penjualan</h2>
 
-<form action="proses_penjualan.php" method="post">
+<form id="salesForm">
     <!-- Input Tahun -->
     <label for="tahun">Masukkan Tahun:</label>
     <select id="tahun" name="tahun" required>
@@ -80,6 +82,51 @@
     <!-- Submit Button -->
     <button type="submit">Simpan Penjualan</button>
 </form>
+
+<script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyC_vaZFH-193-UE7yqIiviEQTnbVLtUmDI",
+        authDomain: "sales-report-app-8857a.firebaseapp.com",
+        databaseURL: "https://sales-report-app-8857a-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "sales-report-app-8857a",
+        storageBucket: "sales-report-app-8857a.firebasestorage.app",
+        messagingSenderId: "647657654854",
+        appId: "1:647657654854:web:7eedb489a6ef2265ea9847"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const salesRef = ref(database, 'sales');
+
+    // Handle form submission
+    document.getElementById('salesForm').addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        // Get form values
+        const tahun = document.getElementById('tahun').value;
+        const bulan = document.getElementById('bulan').value;
+        const jumlahPenjualan = parseFloat(document.getElementById('jumlah_penjualan').value);
+
+        // Save data to Firebase
+        const newSaleRef = push(salesRef);
+        set(newSaleRef, {
+            year: tahun,
+            month: bulan,
+            sales: jumlahPenjualan
+        }).then(() => {
+            alert("Data berhasil disimpan!");
+            document.getElementById('salesForm').reset(); // Reset form
+        }).catch((error) => {
+            console.error("Error menyimpan data:", error);
+        });
+    });
+</script>
 
 </body>
 </html>
