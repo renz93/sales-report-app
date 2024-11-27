@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>View Data Penjualan</title>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ddd;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+    th {
+      background-color: #f4f4f4;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Data Penjualan</h1>
+  
+  <!-- Tabel Data Penjualan -->
+  <table id="salesTable">
+    <thead>
+      <tr>
+        <th>Nama Produk</th>
+        <th>Harga</th>
+        <th>Jumlah</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody id="salesTableBody"></tbody>
+  </table>
+
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+    import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_vaZFH-193-UE7yqIiviEQTnbVLtUmDI",
+      authDomain: "sales-report-app-8857a.firebaseapp.com",
+      databaseURL: "https://sales-report-app-8857a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "sales-report-app-8857a",
+      storageBucket: "sales-report-app-8857a.firebasestorage.app",
+      messagingSenderId: "647657654854",
+      appId: "1:647657654854:web:7eedb489a6ef2265ea9847"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const database = getDatabase(app);
+    const salesRef = ref(database, 'sales');
+
+    // Fungsi untuk membaca dan menampilkan data dari Firebase
+    onValue(salesRef, (snapshot) => {
+      const data = snapshot.val();
+      const tableBody = document.getElementById('salesTableBody');
+      tableBody.innerHTML = ''; // Kosongkan tabel sebelum mengisi
+
+      for (const id in data) {
+        const sale = data[id];
+        const row = `
+          <tr>
+            <td>${sale.product}</td>
+            <td>${sale.price}</td>
+            <td>${sale.quantity}</td>
+            <td>${sale.total}</td>
+          </tr>
+        `;
+        tableBody.innerHTML += row;
+      }
+    });
+  </script>
+</body>
+</html>
