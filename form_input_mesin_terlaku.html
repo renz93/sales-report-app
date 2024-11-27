@@ -1,93 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Input Mesin Terjual</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        form {
-            max-width: 400px;
-            margin: auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        form label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        form input, form select, form button {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-        form button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        form button:hover {
-            background-color: #0056b3;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard Penjualan untuk memantau omzet, mesin paling laku, dan performa penjualan client.">
+  <title>Dashboard Penjualan</title>
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js"></script>
 </head>
 <body>
+  <div class="container">
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder">
+      <p>Loading sidebar...</p> <!-- Fallback jika sidebar gagal dimuat -->
+    </div>
 
-<h2>Form Input Mesin Paling Laku Terjual</h2>
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1>Form Input Mesin Terlaku</h1>
+        </div>
+      </header>
 
-<form action="proses_mesin_terjual.php" method="post">
-    <!-- Input Tipe Mesin -->
-    <label for="tipe_mesin">Masukkan Tipe Mesin:</label>
-    <input type="search" id="tipe_mesin" name="tipe_mesin" list="tipe_mesin_list" placeholder="Cari tipe mesin" required>
-    <datalist id="tipe_mesin_list">
-        <option value="Solution X-100">
-        <option value="Solution X-101">
-        <option value="Solution X-102">
-        <option value="Solution X-103">
-        <option value="Solution X-104">
-        <option value="Solution X-105">
-		<!-- Tipe Mesin P -->
-		<option value="P-100">
-        <option value="P-101">
-        <option value="P-102">
-        <option value="P-103">
-        <option value="P-104">
-        <option value="P-105">
-    </datalist>
+      <!-- Content Section -->
+      <section class="content">
+        <form id="machineForm">
+            <!-- Input Tipe Mesin -->
+            <label for="tipe_mesin">Masukkan Tipe Mesin:</label>
+            <input type="search" id="tipe_mesin" name="tipe_mesin" list="tipe_mesin_list" placeholder="Cari tipe mesin" required>
+            <datalist id="tipe_mesin_list">
+                <option value="Solution X-100">
+                <option value="Solution X-101">
+                <option value="Solution X-102">
+                <option value="Solution X-103">
+                <option value="Solution X-104">
+                <option value="Solution X-105">
+                <option value="P-100">
+                <option value="P-101">
+                <option value="P-102">
+                <option value="P-103">
+                <option value="P-104">
+                <option value="P-105">
+            </datalist>
 
-    <!-- Input Bulan -->
-    <label for="bulan">Pilih Bulan:</label>
-    <select id="bulan" name="bulan" required>
-        <option value="Januari">Januari</option>
-        <option value="Februari">Februari</option>
-        <option value="Maret">Maret</option>
-        <option value="April">April</option>
-        <option value="Mei">Mei</option>
-        <option value="Juni">Juni</option>
-        <option value="Juli">Juli</option>
-        <option value="Agustus">Agustus</option>
-        <option value="September">September</option>
-        <option value="Oktober">Oktober</option>
-        <option value="November">November</option>
-        <option value="Desember">Desember</option>
-    </select>
+            <!-- Input Bulan -->
+            <label for="bulan">Pilih Bulan:</label>
+            <select id="bulan" name="bulan" required>
+                <option value="Januari">Januari</option>
+                <option value="Februari">Februari</option>
+                <option value="Maret">Maret</option>
+                <option value="April">April</option>
+                <option value="Mei">Mei</option>
+                <option value="Juni">Juni</option>
+                <option value="Juli">Juli</option>
+                <option value="Agustus">Agustus</option>
+                <option value="September">September</option>
+                <option value="Oktober">Oktober</option>
+                <option value="November">November</option>
+                <option value="Desember">Desember</option>
+            </select>
 
-    <!-- Input Jumlah Unit Terjual -->
-    <label for="jumlah_terjual">Jumlah Unit Terjual:</label>
-    <input type="number" id="jumlah_terjual" name="jumlah_terjual" placeholder="Masukkan jumlah unit terjual" required>
+            <!-- Input Jumlah Unit Terjual -->
+            <label for="jumlah_terjual">Jumlah Unit Terjual:</label>
+            <input type="number" id="jumlah_terjual" name="jumlah_terjual" placeholder="Masukkan jumlah unit terjual" required>
 
-    <!-- Submit Button -->
-    <button type="submit">Simpan Data</button>
-</form>
+            <!-- Submit Button -->
+            <button type="submit">Simpan Data</button>
+        </form>
+        
+      </section>
+    </main>
+  </div>
 
+  <!-- JavaScript -->
+  <script type="module">
+        // Import Firebase modules
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-app.js";
+        import { getDatabase, ref, push, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyC_vaZFH-193-UE7yqIiviEQTnbVLtUmDI",
+            authDomain: "sales-report-app-8857a.firebaseapp.com",
+            databaseURL: "https://sales-report-app-8857a-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "sales-report-app-8857a",
+            storageBucket: "sales-report-app-8857a.firebasestorage.app",
+            messagingSenderId: "647657654854",
+            appId: "1:647657654854:web:7eedb489a6ef2265ea9847"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+        const machineRef = ref(database, 'machines'); // Reference to 'machines' node
+
+        // Handle form submission
+        document.getElementById('machineForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // Get form values
+            const tipeMesin = document.getElementById('tipe_mesin').value;
+            const bulan = document.getElementById('bulan').value;
+            const jumlahTerjual = parseInt(document.getElementById('jumlah_terjual').value);
+
+            // Save data to Firebase
+            const newMachineRef = push(machineRef);
+            set(newMachineRef, {
+                machineType: tipeMesin,
+                month: bulan,
+                unitsSold: jumlahTerjual
+            }).then(() => {
+                alert("Data berhasil disimpan!");
+                document.getElementById('machineForm').reset(); // Reset form
+            }).catch((error) => {
+                console.error("Error menyimpan data:", error);
+            });
+        });
+    </script>
+  <script src="script.js"></script>
 </body>
 </html>
