@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Analisis</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="chart.js"></script> <!-- Library Chart.js -->
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Aplikasi Penjualan</h2>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="sales.html">Penjualan</a></li>
+        <li><a href="clients.html">Client</a></li>
+        <li><a href="analysis.html" class="active">Analisis</a></li> <!-- Aktif -->
+        <li><a href="settings.html">Pengaturan</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header>
+        <h1>Analisis Penjualan</h1>
+      </header>
+
+      <!-- Konten Utama -->
+      <section class="content">
+        <!-- Grafik Tren Omzet -->
+        <div class="row">
+          <div class="card">
+            <h3>Tren Omzet Per Bulan</h3>
+            <canvas id="trendChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Grafik Perbandingan Penjualan -->
+        <div class="row">
+          <div class="card">
+            <h3>Perbandingan Penjualan Tahun Ini vs Tahun Lalu</h3>
+            <canvas id="comparisonChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Grafik Produk Paling Laku -->
+        <div class="row">
+          <div class="card">
+            <h3>Produk Paling Laku</h3>
+            <canvas id="productChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Grafik Client Aktif -->
+        <div class="row">
+          <div class="card">
+            <h3>Client Paling Aktif</h3>
+            <canvas id="activeClientChart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Script.js -->
+  <script src="script.js"></script>
+</body>
+</html>

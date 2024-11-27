@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Dashboard Penjualan untuk memantau omzet, mesin paling laku, dan performa penjualan client.">
+  <title>Dashboard Penjualan</title>
+  <!-- Link CSS -->
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar Placeholder -->
+    <div id="sidebar-placeholder">
+      <p>Loading sidebar...</p> <!-- Fallback jika sidebar gagal dimuat -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-left">
+          <h1>Dashboard Penjualan</h1>
+        </div>
+      </header>
+
+      <!-- Content Section -->
+      <section class="content">
+        <div class="row">
+          <!-- Rata-rata Omzet -->
+          <div class="card">
+            <h3>Rata-rata Omzet per Bulan</h3>
+            <canvas id="omzetChart"></canvas>
+          </div>
+
+          <!-- Mesin/Device Paling Laku -->
+          <div class="card">
+            <h3>Mesin Paling Laku</h3>
+            <canvas id="deviceChart"></canvas>
+          </div>
+        </div>
+        <div class="row">
+          <!-- Perbandingan Penjualan Bulan Ini dan Bulan Lalu -->
+          <div class="card">
+            <h3>Perbandingan Penjualan</h3>
+            <canvas id="comparisonChart"></canvas>
+          </div>
+
+          <!-- Client yang Sering Order -->
+          <div class="card">
+            <h3>Client yang Sering Order</h3>
+            <canvas id="clientChart"></canvas>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>

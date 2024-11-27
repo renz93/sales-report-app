@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Pengaturan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Aplikasi Penjualan</h2>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="sales.html">Penjualan</a></li>
+        <li><a href="clients.html">Client</a></li>
+        <li><a href="analysis.html">Analisis</a></li>
+        <li><a href="settings.html" class="active">Pengaturan</a></li> <!-- Aktif -->
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header>
+        <h1>Pengaturan</h1>
+      </header>
+
+      <!-- Konten Utama -->
+      <section class="content">
+        <!-- Form Pengaturan Profil -->
+        <div class="card">
+          <h3>Pengaturan Profil</h3>
+          <form>
+            <label for="username">Nama Pengguna:</label><br>
+            <input type="text" id="username" name="username" value="Admin" required><br><br>
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="admin@example.com" required><br><br>
+            <button type="submit">Simpan Perubahan</button>
+          </form>
+        </div>
+
+        <!-- Form Ganti Password -->
+        <div class="card">
+          <h3>Ganti Password</h3>
+          <form>
+            <label for="currentPassword">Password Lama:</label><br>
+            <input type="password" id="currentPassword" name="currentPassword" required><br><br>
+            <label for="newPassword">Password Baru:</label><br>
+            <input type="password" id="newPassword" name="newPassword" required><br><br>
+            <label for="confirmPassword">Konfirmasi Password Baru:</label><br>
+            <input type="password" id="confirmPassword" name="confirmPassword" required><br><br>
+            <button type="submit">Ganti Password</button>
+          </form>
+        </div>
+
+        <!-- Form Preferensi -->
+        <div class="card">
+          <h3>Preferensi Aplikasi</h3>
+          <form>
+            <label for="theme">Tema:</label><br>
+            <select id="theme" name="theme">
+              <option value="light">Terang</option>
+              <option value="dark">Gelap</option>
+            </select><br><br>
+            <label for="notifications">Notifikasi:</label><br>
+            <input type="checkbox" id="notifications" name="notifications" checked> Aktifkan Notifikasi<br><br>
+            <button type="submit">Simpan Preferensi</button>
+          </form>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="script.js"></script>
+
+</body>
+</html>

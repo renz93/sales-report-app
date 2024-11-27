@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halaman Client</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Library Chart.js -->
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Aplikasi Penjualan</h2>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="sales.html">Penjualan</a></li>
+        <li><a href="clients.html" class="active">Client</a></li> <!-- Aktif -->
+        <li><a href="analysis.html">Analisis</a></li>
+        <li><a href="settings.html">Pengaturan</a></li>
+      </ul>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header>
+        <h1>Daftar Client</h1>
+      </header>
+
+      <!-- Konten Utama -->
+      <section class="content">
+        <!-- Grafik Client yang Sering Order -->
+        <div class="row">
+          <div class="card">
+            <h3>Client yang Sering Order</h3>
+            <canvas id="clientChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Tabel Detail Client -->
+        <section>
+          <h2>Detail Client</h2>
+          <table border="1" style="width:100%; text-align:center; margin-bottom: 20px;">
+            <thead>
+              <tr>
+                <th>Nama Client</th>
+                <th>Email</th>
+                <th>Jumlah Order</th>
+                <th>Omzet (Juta)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>PT. ABC</td>
+                <td>abc@example.com</td>
+                <td>50</td>
+                <td>500</td>
+              </tr>
+              <tr>
+                <td>PT. XYZ</td>
+                <td>xyz@example.com</td>
+                <td>30</td>
+                <td>300</td>
+              </tr>
+              <tr>
+                <td>PT. DEF</td>
+                <td>def@example.com</td>
+                <td>20</td>
+                <td>200</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Form Tambah Client -->
+        <section>
+          <h2>Tambah Client Baru</h2>
+          <form>
+            <label for="clientName">Nama Client:</label><br>
+            <input type="text" id="clientName" name="clientName" required><br><br>
+            <label for="clientEmail">Email Client:</label><br>
+            <input type="email" id="clientEmail" name="clientEmail" required><br><br>
+            <button type="submit">Tambah Client</button>
+          </form>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <!-- File Script.js -->
+  <script src="script.js"></script> <!-- Dipanggil setelah elemen DOM -->
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Input Penjualan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        form label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        form input, form select, form button {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        form button {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        form button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Form Input Penjualan</h2>
+
+<form action="proses_penjualan.php" method="post">
+    <!-- Input Tahun -->
+    <label for="tahun">Masukkan Tahun:</label>
+    <select id="tahun" name="tahun" required>
+        <script>
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear; i <= currentYear + 5; i++) {
+                document.write(`<option value="${i}">${i}</option>`);
+            }
+        </script>
+    </select>
+
+    <!-- Input Bulan -->
+    <label for="bulan">Pilih Bulan:</label>
+    <select id="bulan" name="bulan" required>
+        <option value="Januari">Januari</option>
+        <option value="Februari">Februari</option>
+        <option value="Maret">Maret</option>
+        <option value="April">April</option>
+        <option value="Mei">Mei</option>
+        <option value="Juni">Juni</option>
+        <option value="Juli">Juli</option>
+        <option value="Agustus">Agustus</option>
+        <option value="September">September</option>
+        <option value="Oktober">Oktober</option>
+        <option value="November">November</option>
+        <option value="Desember">Desember</option>
+    </select>
+
+    <!-- Input Jumlah Penjualan -->
+    <label for="jumlah_penjualan">Jumlah Penjualan (dalam Rp):</label>
+    <input type="number" id="jumlah_penjualan" name="jumlah_penjualan" placeholder="Masukkan jumlah penjualan" required>
+
+    <!-- Submit Button -->
+    <button type="submit">Simpan Penjualan</button>
+</form>
+
+</body>
+</html>

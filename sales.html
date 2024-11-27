@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Penjualan</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="chart.js"></script> <!-- Untuk Grafik -->
+</head>
+<body>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h2>Aplikasi Penjualan</h2>
+      <ul>
+        <li><a href="index.html">Dashboard</a></li>
+        <li><a href="sales.html" class="active">Penjualan</a></li>
+        <li><a href="clients.html">Client</a></li>
+        <li><a href="analysis.html">Analisis</a></li>
+        <li><a href="settings.html">Pengaturan</a></li>
+      </ul>
+    </aside>
+	
+<section>
+  <h2>Filter Penjualan</h2>
+  <label for="month">Pilih Bulan:</label>
+  <select id="month">
+    <option value="jan">Januari</option>
+    <option value="feb">Februari</option>
+    <option value="mar">Maret</option>
+    <option value="apr">April</option>
+  </select>
+  <button onclick="filterSales()">Terapkan</button>
+</section>
+
+<script>
+  function filterSales() {
+    const month = document.getElementById('month').value;
+    alert('Filter penjualan untuk bulan: ' + month);
+  }
+</script>
+
+    <!-- Main Content -->
+    <main class="main-content">
+  <header>
+    <h1>Data Penjualan</h1>
+  </header>
+
+	<section>
+  <h2>Grafik Penjualan</h2>
+  <canvas id="salesChart"></canvas>
+</section>
+
+
+
+  <!-- Tabel Penjualan -->
+  <section>
+  <h2>Tabel Penjualan</h2>
+  <table border="1" style="width:100%; text-align:center;">
+    <thead>
+      <tr>
+        <th>Bulan</th>
+        <th>Jumlah Produk Terjual</th>
+        <th>Omzet (Juta)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Januari</td>
+        <td>500</td>
+        <td>100</td>
+      </tr>
+      <tr>
+        <td>Februari</td>
+        <td>700</td>
+        <td>150</td>
+      </tr>
+      <tr>
+        <td>Maret</td>
+        <td>800</td>
+        <td>200</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+
+  <!-- Ringkasan Penjualan -->
+  <section>
+  <h2>Ringkasan Penjualan</h2>
+  <div style="display: flex; gap: 20px;">
+    <div style="flex: 1; padding: 10px; background: #f1f1f1; text-align: center;">
+      <h3>Total Omzet</h3>
+      <p>Rp 1,200,000,000</p>
+    </div>
+    <div style="flex: 1; padding: 10px; background: #f1f1f1; text-align: center;">
+      <h3>Produk Paling Laku</h3>
+      <p>Mesin A</p>
+    </div>
+    <div style="flex: 1; padding: 10px; background: #f1f1f1; text-align: center;">
+      <h3>Client Terbanyak</h3>
+      <p>PT. ABC</p>
+    </div>
+  </div>
+</section>
+
+</main>
+
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
