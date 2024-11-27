@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Input Penjualan</title>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-database.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    form {
+      max-width: 400px;
+      margin: auto;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    form label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+    }
+    form input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    form button {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    form button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+  <h1>Input Penjualan</h1>
+  <form id="salesForm">
+    <label for="product">Nama Produk:</label>
+    <input type="text" id="product" name="product" required>
+
+    <label for="price">Harga:</label>
+    <input type="number" id="price" name="price" required>
+
+    <label for="quantity">Jumlah Terjual:</label>
+    <input type="number" id="quantity" name="quantity" required>
+
+    <button type="submit">Simpan Penjualan</button>
+  </form>
+
+  <script>
+    // Konfigurasi Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_vaZFH-193-UE7yqIiviEQTnbVLtUmDI",
+      authDomain: "sales-report-app-8857a.firebaseapp.com",
+      databaseURL: "https://sales-report-app-8857a-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "sales-report-app-8857a",
+      storageBucket: "sales-report-app-8857a.firebasestorage.app",
+      messagingSenderId: "647657654854",
+      appId: "1:647657654854:web:7eedb489a6ef2265ea9847"
+    };
+
+    // Inisialisasi Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = firebase.database();
+    const salesRef = firebase.database().ref('sales');
+
+    // Fungsi untuk menyimpan data ke Firebase
+    document.getElementById('salesForm').addEventListener('submit', function (e) {
+      e.preventDefault(); // Mencegah refresh halaman
+
+      // Ambil nilai dari form
+      const product = document.getElementById('product').value;
+      const price = parseFloat(document.getElementById('price').value);
+      const quantity = parseInt(document.getElementById('quantity').value);
+
+      // Simpan data ke Firebase
+      salesRef.push({
+        product: product,
+        price: price,
+        quantity: quantity,
+        total: price * quantity
+      }).then(() => {
+        alert('Data berhasil disimpan!');
+        // Reset form
+        document.getElementById('salesForm').reset();
+      }).catch(error => {
+        console.error('Error menyimpan data:', error);
+      });
+    });
+  </script>
+</body>
+</html>
