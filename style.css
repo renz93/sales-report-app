@@ -20,7 +20,7 @@ body {
 .sidebar {
   background-color: #2A3F54;
   color: white;
-  width: 100%; /* Lebar sidebar */
+  width: 15em; /* Lebar sidebar */
   height: 100%; /* Tinggi penuh */
   padding: 20px;
   box-sizing: border-box; /* Pastikan padding tidak memengaruhi ukuran */
