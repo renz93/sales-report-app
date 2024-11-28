@@ -68,7 +68,7 @@
       </section>
       <!-- Ringkasan Omzet -->
       <section>
-        <h2>Ringkasan Omzet Tahun 2019</h2>
+        <h2 id="ringkasanOmzetTitle">Ringkasan Omzet Tahun 2019</h2>
         <div style="display: flex; gap: 20px;">
           <div style="flex: 1; padding: 10px; background: #f1f1f1; text-align: center;">
             <h3>Total Omzet</h3>
@@ -111,6 +111,8 @@
   const applyFilterBtn = document.getElementById('applyFilter');
   const totalOmzetElement = document.getElementById('totalOmzet');
   const averageOmzetElement = document.getElementById('averageOmzet');
+  const omzetTitleElement = document.querySelector('h2#ringkasanOmzetTitle'); // Tambahkan ID untuk H2
+
 
   // Chart and data variables
   let salesData = [];
@@ -130,6 +132,9 @@
   function filterSales() {
     const selectedYear = filterYear.value;
     filteredData = salesData.filter(item => item.year === selectedYear);
+    
+    // Update Ringkasan Omzet Title dynamically
+    omzetTitleElement.textContent = `Ringkasan Omzet Tahun ${selectedYear}`;
 
     // Alert with the year and number of entries
     //alert(`Filter untuk Tahun ${selectedYear} diterapkan. Ditemukan ${filteredData.length} data.`);
