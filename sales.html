@@ -52,6 +52,21 @@
           </tbody>
         </table>
       </section>
+      <!-- Ringkasan Omzet -->
+      <section>
+        <h2>Ringkasan Omzet Tahun 2019</h2>
+        <div style="display: flex; gap: 20px;">
+          <div style="flex: 1; padding: 10px; background: #f1f1f1; text-align: center;">
+            <h3>Total Omzet</h3>
+            <p id="totalOmzet">Rp 0</p>
+          </div>
+          <div style="flex: 1; padding: 10px; background: #f1f1f1; text-align: center;">
+            <h3>Rata-rata Omzet</h3>
+            <p id="averageOmzet">Rp 0</p>
+          </div>
+        </div>
+      </section>
+
     </main>
   </div>
 
@@ -143,6 +158,50 @@
           }
         }
       });
+      // HTML Elements for Ringkasan Omzet
+const totalOmzetElement = document.getElementById('totalOmzet');
+const averageOmzetElement = document.getElementById('averageOmzet');
+
+// Listen to Firebase Realtime Database
+onValue(salesRef, (snapshot) => {
+  const salesData = [];
+  let totalOmzet = 0;
+  let count2019 = 0;
+
+  salesTableBody.innerHTML = ''; // Clear table
+
+  // Iterate over Firebase data
+  snapshot.forEach((childSnapshot) => {
+    const data = childSnapshot.val();
+    salesData.push(data);
+
+    // Append row to table
+    const row = `
+      <tr>
+        <td>${data.month}</td>
+        <td>${data.year}</td>
+        <td>${data.sales.toLocaleString()}</td>
+      </tr>
+    `;
+    salesTableBody.innerHTML += row;
+
+    // Calculate total and count for year 2019
+    if (data.year === "2019") {
+      totalOmzet += data.sales;
+      count2019++;
+    }
+  });
+
+      // Update Ringkasan Omzet
+      totalOmzetElement.innerText = `Rp ${totalOmzet.toLocaleString()}`;
+      averageOmzetElement.innerText = count2019 > 0
+        ? `Rp ${(totalOmzet / count2019).toLocaleString()}`
+        : `Rp 0`;
+    
+      // Update Chart
+      updateSalesChart(salesData);
+    });
+
     }
   </script>
 </body>
