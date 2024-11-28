@@ -94,6 +94,9 @@
 
     // HTML Elements
     const salesTableBody = document.getElementById('salesTableBody');
+    const totalOmzetElement = document.getElementById('totalOmzet');
+    const averageOmzetElement = document.getElementById('averageOmzet');
+    const salesChartCanvas = document.getElementById('salesChart');
 
     // Chart variables
     let salesChart;
@@ -101,6 +104,9 @@
     // Listen to Firebase Realtime Database
     onValue(salesRef, (snapshot) => {
       const salesData = [];
+      let totalOmzet = 0;
+      let count2019 = 0;
+
       salesTableBody.innerHTML = ''; // Clear table
 
       // Iterate over Firebase data
@@ -117,15 +123,26 @@
           </tr>
         `;
         salesTableBody.innerHTML += row;
+
+        // Calculate total and count for year 2019
+        if (data.year === "2019") {
+          totalOmzet += data.sales;
+          count2019++;
+        }
       });
 
-      // Update chart
+      // Update Ringkasan Omzet
+      totalOmzetElement.innerText = `Rp ${totalOmzet.toLocaleString()}`;
+      averageOmzetElement.innerText = count2019 > 0
+        ? `Rp ${(totalOmzet / count2019).toLocaleString()}`
+        : `Rp 0`;
+
+      // Update Chart
       updateSalesChart(salesData);
     });
 
     // Update chart function
     function updateSalesChart(data) {
-      const ctx = document.getElementById('salesChart').getContext('2d');
       const labels = data.map(item => `${item.month} ${item.year}`);
       const sales = data.map(item => item.sales);
 
@@ -133,7 +150,7 @@
         salesChart.destroy(); // Destroy previous chart if it exists
       }
 
-      salesChart = new Chart(ctx, {
+      salesChart = new Chart(salesChartCanvas, {
         type: 'line',
         data: {
           labels: labels,
@@ -158,50 +175,6 @@
           }
         }
       });
-      // HTML Elements for Ringkasan Omzet
-const totalOmzetElement = document.getElementById('totalOmzet');
-const averageOmzetElement = document.getElementById('averageOmzet');
-
-// Listen to Firebase Realtime Database
-onValue(salesRef, (snapshot) => {
-  const salesData = [];
-  let totalOmzet = 0;
-  let count2019 = 0;
-
-  salesTableBody.innerHTML = ''; // Clear table
-
-  // Iterate over Firebase data
-  snapshot.forEach((childSnapshot) => {
-    const data = childSnapshot.val();
-    salesData.push(data);
-
-    // Append row to table
-    const row = `
-      <tr>
-        <td>${data.month}</td>
-        <td>${data.year}</td>
-        <td>${data.sales.toLocaleString()}</td>
-      </tr>
-    `;
-    salesTableBody.innerHTML += row;
-
-    // Calculate total and count for year 2019
-    if (data.year === "2019") {
-      totalOmzet += data.sales;
-      count2019++;
-    }
-  });
-
-      // Update Ringkasan Omzet
-      totalOmzetElement.innerText = `Rp ${totalOmzet.toLocaleString()}`;
-      averageOmzetElement.innerText = count2019 > 0
-        ? `Rp ${(totalOmzet / count2019).toLocaleString()}`
-        : `Rp 0`;
-    
-      // Update Chart
-      updateSalesChart(salesData);
-    });
-
     }
   </script>
 </body>
