@@ -41,7 +41,7 @@
           <option value="2022">2022</option>
           <option value="2023">2023</option>
         </select>
-        <button onclick="filterSales()">Terapkan Filter</button>
+        <button id="applyFilter">Terapkan Filter</button>
       </section>
 
       <!-- Grafik Penjualan -->
@@ -67,9 +67,9 @@
         </table>
         <!-- Pagination -->
         <div id="pagination" style="text-align: center; margin-top: 20px;">
-          <button id="prevPage" onclick="changePage(-1)">Sebelumnya</button>
+          <button id="prevPage">Sebelumnya</button>
           <span id="pageInfo">Halaman 1</span>
-          <button id="nextPage" onclick="changePage(1)">Berikutnya</button>
+          <button id="nextPage">Berikutnya</button>
         </div>
       </section>
     </main>
@@ -99,6 +99,10 @@
     const salesTableBody = document.getElementById('salesTableBody');
     const salesChartCanvas = document.getElementById('salesChart');
     const pageInfo = document.getElementById('pageInfo');
+    const filterYear = document.getElementById('filterYear');
+    const applyFilterBtn = document.getElementById('applyFilter');
+    const prevPageBtn = document.getElementById('prevPage');
+    const nextPageBtn = document.getElementById('nextPage');
 
     let salesData = [];
     let filteredData = [];
@@ -117,7 +121,7 @@
 
     // Function to filter sales by year
     function filterSales() {
-      const selectedYear = document.getElementById('filterYear').value;
+      const selectedYear = filterYear.value;
       filteredData = salesData.filter(item => item.year === selectedYear);
       currentPage = 1; // Reset to first page
       displayTable();
@@ -143,6 +147,8 @@
       });
 
       pageInfo.innerText = `Halaman ${currentPage} dari ${Math.ceil(filteredData.length / rowsPerPage)}`;
+      prevPageBtn.disabled = currentPage === 1;
+      nextPageBtn.disabled = currentPage === Math.ceil(filteredData.length / rowsPerPage);
     }
 
     // Function to handle pagination
@@ -187,6 +193,11 @@
         }
       });
     }
+
+    // Event Listeners
+    applyFilterBtn.addEventListener('click', filterSales);
+    prevPageBtn.addEventListener('click', () => changePage(-1));
+    nextPageBtn.addEventListener('click', () => changePage(1));
   </script>
 </body>
 </html>
