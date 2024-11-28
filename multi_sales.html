@@ -65,12 +65,6 @@
             <!-- Data dari Firebase akan ditambahkan di sini -->
           </tbody>
         </table>
-        <!-- Pagination -->
-        <div id="pagination" style="text-align: center; margin-top: 20px;">
-          <button id="prevPage">Sebelumnya</button>
-          <span id="pageInfo">Halaman 1</span>
-          <button id="nextPage">Berikutnya</button>
-        </div>
       </section>
     </main>
   </div>
@@ -98,17 +92,11 @@
     // HTML Elements
     const salesTableBody = document.getElementById('salesTableBody');
     const salesChartCanvas = document.getElementById('salesChart');
-    const pageInfo = document.getElementById('pageInfo');
     const filterYear = document.getElementById('filterYear');
     const applyFilterBtn = document.getElementById('applyFilter');
-    const prevPageBtn = document.getElementById('prevPage');
-    const nextPageBtn = document.getElementById('nextPage');
 
     let salesData = [];
     let filteredData = [];
-    let currentPage = 1;
-    const rowsPerPage = 5;
-    let salesChart;
 
     // Listen to Firebase data
     onValue(salesRef, (snapshot) => {
@@ -123,19 +111,19 @@
     function filterSales() {
       const selectedYear = filterYear.value;
       filteredData = salesData.filter(item => item.year === selectedYear);
-      currentPage = 1; // Reset to first page
+
+      // Show an alert with the year and the number of data entries
+      alert(`Filter untuk Tahun ${selectedYear} diterapkan. Ditemukan ${filteredData.length} data.`);
+
+      // Update table and chart
       displayTable();
       updateSalesChart();
     }
 
-    // Function to display table with pagination
+    // Function to display table
     function displayTable() {
-      const start = (currentPage - 1) * rowsPerPage;
-      const end = start + rowsPerPage;
-      const paginatedData = filteredData.slice(start, end);
-
       salesTableBody.innerHTML = '';
-      paginatedData.forEach((item) => {
+      filteredData.forEach((item) => {
         const row = `
           <tr>
             <td>${item.month}</td>
@@ -145,17 +133,6 @@
         `;
         salesTableBody.innerHTML += row;
       });
-
-      pageInfo.innerText = `Halaman ${currentPage} dari ${Math.ceil(filteredData.length / rowsPerPage)}`;
-      prevPageBtn.disabled = currentPage === 1;
-      nextPageBtn.disabled = currentPage === Math.ceil(filteredData.length / rowsPerPage);
-    }
-
-    // Function to handle pagination
-    function changePage(direction) {
-      const maxPage = Math.ceil(filteredData.length / rowsPerPage);
-      currentPage = Math.max(1, Math.min(maxPage, currentPage + direction));
-      displayTable();
     }
 
     // Function to update chart
@@ -163,11 +140,7 @@
       const labels = filteredData.map(item => item.month);
       const sales = filteredData.map(item => item.sales);
 
-      if (salesChart) {
-        salesChart.destroy();
-      }
-
-      salesChart = new Chart(salesChartCanvas, {
+      new Chart(salesChartCanvas, {
         type: 'line',
         data: {
           labels: labels,
@@ -196,8 +169,6 @@
 
     // Event Listeners
     applyFilterBtn.addEventListener('click', filterSales);
-    prevPageBtn.addEventListener('click', () => changePage(-1));
-    nextPageBtn.addEventListener('click', () => changePage(1));
   </script>
 </body>
 </html>
